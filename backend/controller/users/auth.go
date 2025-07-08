@@ -26,6 +26,7 @@ type (
        Password  string    `json:"password"`
        BirthDay  time.Time `json:"birthday"`
        GenderID  uint      `json:"gender_id"`
+       Address  string     `json:"address"`
    }
 )
 
@@ -67,6 +68,7 @@ func SignUp(c *gin.Context) {
        Password:  hashedPassword,
        BirthDay:  payload.BirthDay,
        GenderID:  payload.GenderID,
+       Address:  payload.Address,
    }
    // Save the user to the database
    if err := db.Create(&user).Error; err != nil {

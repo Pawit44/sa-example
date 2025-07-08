@@ -7,5 +7,6 @@ export interface UsersInterface {
   Age?: number;
   BirthDay?: string;
   GenderID?: number;
+  Address?: string;
   Password?: string;
 }
