@@ -50,7 +50,8 @@ function SignUpPages() {
 
   const onGetGender = async () => {
 
-    let res = await GetGender();
+    let res = await GetGender(); 
+    // res = {status: 200 , data: {...} } ด้านในของ res เมื่อ status เป็น 200 หรือสถานะเป็น resolve ใน promise
 
     if (res.status == 200) {
 

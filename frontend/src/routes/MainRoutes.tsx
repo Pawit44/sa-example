@@ -1,6 +1,5 @@
 import { lazy } from "react";
 
-import React from "react";
 
 import type { RouteObject } from "react-router-dom";
 
@@ -46,7 +45,7 @@ const MainRoutes = (): RouteObject => {
 
       {
 
-        path: "*",
+        path: "*", // เป็นตัวที่บอกว่าถ้าพิมพ์อย่างอื่นที่ไม่ใช่ / และ /signup ทั้งหมดจะให้ link ไปหน้า login ทั้งหมด
 
         element: <MainPages />,
 

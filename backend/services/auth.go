@@ -22,7 +22,6 @@ type JwtClaim struct {
    jwt.StandardClaims
 }
 
-
 // Generate Token generates a jwt token
 func (j *JwtWrapper) GenerateToken(email string) (signedToken string, err error) {
    claims := &JwtClaim{
@@ -40,6 +39,7 @@ func (j *JwtWrapper) GenerateToken(email string) (signedToken string, err error)
    }
    return
 }
+
 
 // Validate Token validates the jwt token
 func (j *JwtWrapper) ValidateToken(signedToken string) (claims *JwtClaim, err error) {

@@ -39,12 +39,14 @@ func main() {
    }
 
    r.GET("/genders", genders.GetAll)
+   r.GET("/api/users/latest", users.GetLatest)
    r.GET("/", func(c *gin.Context) {
        c.String(http.StatusOK, "API RUNNING... PORT: %s", PORT)
    })
    // Run the server
    r.Run("localhost:" + PORT)
 }
+
 
 func CORSMiddleware() gin.HandlerFunc {
    return func(c *gin.Context) {

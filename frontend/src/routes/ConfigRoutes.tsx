@@ -23,7 +23,6 @@ function ConfigRoutes() {
 
   }
 
-
   return useRoutes(routes);
 
 }

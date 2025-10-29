@@ -8,7 +8,7 @@ const Bearer = localStorage.getItem("token_type");
 const requestOptions = {
   headers: {
     "Content-Type": "application/json",
-    Authorization: `${Bearer} ${Authorization}`,
+    Authorization: `${Bearer} ${Authorization}`, // ถ้ายังไม่เคย login ค่าจะเป็นแบบนี้ Authorization: `${null} ${null}` // ผลคือ "null null"
   },
 };
 
@@ -23,7 +23,7 @@ async function SignIn(data: SignInInterface) {
 
 async function GetGender() {
   return await axios
-    .get(`${apiUrl}/genders`, requestOptions)
+    .get(`${apiUrl}/genders`, requestOptions) // /genders คือ Endpoint = จุดนัดที่ทั้งสองฝ่าย front กับ back ตกลงว่าจะมาเจอเพื่อเอาข้อมูลให้กัน เช่น /genders, /users, /orders/1
     .then((res) => res)
     .catch((e) => e.response);
 }

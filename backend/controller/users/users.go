@@ -67,6 +67,20 @@ func Update(c *gin.Context) {
    c.JSON(http.StatusOK, gin.H{"message": "Updated successful"})
 }
 
+func GetLatest(c *gin.Context) {
+   db := config.DB()
+   var user entity.Users
+
+   result := db.Preload("Gender").Order("created_at desc").First(&user)
+
+   if result.Error != nil {
+       c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+       return
+   }
+
+   c.JSON(http.StatusOK, []entity.Users{user})
+}
+
 
 func Delete(c *gin.Context) {
    id := c.Param("id")

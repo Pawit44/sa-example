@@ -175,7 +175,7 @@ const FullLayout: React.FC = () => {
           </div>
 
 
-          <Button onClick={Logout} style={{ margin: 4 }}>
+          <Button onClick={Logout} style={{ margin: 4  }}>
 
             ออกจากระบบ
 
@@ -188,11 +188,11 @@ const FullLayout: React.FC = () => {
 
       <Layout>
 
-        <Header style={{ padding: 0, background: colorBgContainer }} />
+        <Header style={{ padding: 0, background: colorBgContainer   }} />
 
-        <Content style={{ margin: "0 16px" }}>
+        <Content style={{ margin: "0 16px"}}>
 
-          <Breadcrumb style={{ margin: "16px 0" }} />
+          <Breadcrumb style={{ margin: "15px 0" }} />
 
           <div
 

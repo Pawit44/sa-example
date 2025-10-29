@@ -1,4 +1,6 @@
 import { Col, Row, Card, Statistic, Table } from "antd";
+import { useState , useEffect } from "react";
+import axios from "axios";
 
 import {
 
@@ -17,15 +19,13 @@ import type { ColumnsType } from "antd/es/table";
 
 interface DataType {
 
-  key: string;
-
-  name: string;
-
-  age: number;
-
-  address: string;
-
-  tags: string[];
+  key: string,
+  ID: string,
+  first_name: string,
+  last_name: string,
+  email: string,
+  age: number,
+  address: string,
 
 }
 
@@ -46,7 +46,7 @@ const columns: ColumnsType<DataType> = [
 
     title: "ชื่อ",
 
-    dataIndex: "FirstName",
+    dataIndex: "first_name",
 
     key: "firstname",
 
@@ -54,9 +54,9 @@ const columns: ColumnsType<DataType> = [
 
   {
 
-    title: "นามสกุุล",
+    title: "นามสกุล",
 
-    dataIndex: "LastName",
+    dataIndex: "last_name",
 
     key: "lastname",
 
@@ -66,7 +66,7 @@ const columns: ColumnsType<DataType> = [
 
     title: "อีเมล",
 
-    dataIndex: "Email",
+    dataIndex: "email",
 
     key: "email",
 
@@ -74,18 +74,18 @@ const columns: ColumnsType<DataType> = [
 
   {
 
-    title: "เบอร์โทร",
+    title: "อายุ",
 
-    dataIndex: "Phone",
+    dataIndex: "age",
 
-    key: "phone",
+    key: "age",
 
   },
   {
 
     title: "ที่อยู่",
 
-    dataIndex: "Address",
+    dataIndex: "address",
 
     key: "address",
 
@@ -94,10 +94,33 @@ const columns: ColumnsType<DataType> = [
 ];
 
 
-const data: DataType[] = [];
-
 
 export default function index() {
+  const [data,setData] = useState<DataType []>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+
+    setLoading(true)
+    setError(null)
+    
+    axios.get("http://localhost:8000/api/users/latest")
+      .then((res) => {
+        const withKey = res.data.map((item: any, index: number) => ({
+          ...item,
+          key: item.ID || index.toString(),
+        }));
+        setData(withKey);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching data:", err);
+        setError("ไม่สามารถโหลดข้อมูลได้");
+        setLoading(false);
+      });
+  }, []);
+
 
   return (
 
@@ -114,9 +137,9 @@ export default function index() {
 
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
 
-          <Card style={{ backgroundColor: "#F5F5F5" }}>
+          <Card style={{ backgroundColor: "#f5f5f5" }}>
 
-            <Row gutter={[16, 16]}>
+            <Row gutter={[16,16]}>
 
               <Col xs={24} sm={24} md={12} lg={12} xl={6}>
 
@@ -167,7 +190,7 @@ export default function index() {
 
                     value={200}
 
-                    valueStyle={{ color: "black" }}
+                    valueStyle={{ color: "back" }}
 
                     prefix={<AuditOutlined />}
 
@@ -255,7 +278,20 @@ export default function index() {
 
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
 
-          <Table columns={columns} dataSource={data} />
+          {error && (
+            <div style={{ color: 'red', textAlign: 'center', padding: '20px' }}>
+              {error}
+            </div>
+          )}
+          
+          <Table 
+            columns={columns} 
+            dataSource={data} 
+            loading={loading}
+            locale={{
+              emptyText: loading ? 'กำลังโหลด...' : 'ไม่มีข้อมูล'
+            }}
+          />
 
         </Col>
 
